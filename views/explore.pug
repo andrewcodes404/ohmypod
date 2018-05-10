@@ -1,0 +1,31 @@
+extends layout
+
+block content
+
+  //- pre= h.dump(catParam)
+
+  .cats-menu
+    - const cats = ['crime', 'education', 'culture', 'comedy']
+    each cat in cats 
+      a(href=`/explore/${cat}`)
+        .cat.text-btn(class=(cat === catParam ? 'active' : '')) #{cat}
+    
+  .card-cont
+    //- pre= h.dump(reviews)
+    each rev in reviews
+      .card
+        .card-content
+          a(href=`/review/${rev.slug}`)
+            img(src=`/uploads/${rev.podImg || 'store.png'}`)
+        
+        .edit-btn  
+          a(href=`/review/${rev.slug}/edit`)
+            p.text-center ✏️
+
+
+
+            //- uses a tennery operator to match the t.id from the document to the tag value
+            //-  a.tag__link(href=`/tags/${t._id}` class=(t._id === tag ? 'tag__link--active' : ''))
+            //- 
+            //- How did we get the tag value? in the controller, via the req.params and then passed to us when we res.render’d
+            //- const tag = req.params.tag;

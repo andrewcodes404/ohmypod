@@ -1,0 +1,11 @@
+mixin loginForm()
+  form(action='/login', method='POST')
+      
+    h3 login  
+    label(for='email') email:
+    input(type='email', name='email')
+      
+    label(for='password') password:
+    input(type='password', name='password')
+    br
+    input.text-btn(type='submit', value='login')

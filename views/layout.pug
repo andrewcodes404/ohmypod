@@ -1,0 +1,60 @@
+doctype html
+html
+  head
+    title= `${title} | ${h.siteName}`
+    link(rel='stylesheet', href='/dist/style.css')
+    link(rel="shortcut icon" type="image/png" href="/images/icons/logo.png")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    link(href='https://use.fontawesome.com/releases/v5.0.6/css/all.css', rel='stylesheet')  
+  body
+    header
+      nav
+        .logo
+          a(href='/')
+            h1 oh-my-pod!
+        span.hamburger
+          i.fas.fa-bars#hamburger
+        .menu-wrapper
+          .menu#menu
+            
+            if user
+              .text-btn
+                a(href="/account")  
+                  p Hello #{user.name}
+              .text-btn 
+               a(href='/logout')
+                 span logout
+            else 
+              .icon-btn
+                a(href='/login')
+                  i.far.fa-user-circle
+              .text-btn
+                a(href='/register')
+                  span join
+            if user     
+              .text-btn
+                a(href='/add')
+                  span add
+            .text-btn
+              a(href='/explore')
+                span explore
+            .icon-btn
+              a(href='')
+                i.fas.fa-search
+    .container
+      
+      block content
+
+
+      block messages
+        if locals.flashes
+          - const categories = Object.keys(locals.flashes)
+          each category in categories
+            each message in flashes[category]
+              .flash(class=`flash--${category}`)
+                p.flash__text!= message
+                button.flash__remove(onClick="this.parentElement.remove()") &times;    
+
+
+  block scripts
+      script(src="/dist/App.bundle.js")

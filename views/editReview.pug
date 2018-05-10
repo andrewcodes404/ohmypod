@@ -1,0 +1,45 @@
+extends layout
+
+block content 
+  - review ? review : review = {}
+
+  
+  form(action=`/add/${review.slug || ''}` method='POST' enctype="multipart/form-data")
+  
+    h2.underline #{ review._id ? "Edit your review..." : "" }
+        
+      
+    label(for='podTitle') podcast title:
+    input(type='text', name='podTitle' value= review.podTitle)
+    
+    label(for='podUrl') podacast url:
+    input(type='url', name='podUrl' value= review.podUrl)
+    
+    label.inline(for='podImg') podcast image
+    span.mb05 ( please be square )
+    input(type='file', name='podImg' accept="image/gif, image/png, image/jpeg")
+    
+    if review.podImg
+      .editImg
+        img(src=`/uploads/${review.podImg}`, alt=review.podTitle )
+    
+    
+    label(for='podReview') pod review:
+    textarea(name='podReview', rows='8', cols='80' )= review.podReview
+    
+    label.inline(for='podScore') Score
+    span ( out of 5 ) 
+    input.inline(type='number', name='podScore', min='0', max='5', placeholder='0' value=review.podScore)
+      
+
+    
+    label(for='cat') Category
+    .all-cats
+      - const cats = ['crime', 'education', 'culture', 'comedy']
+      
+      each cat in cats 
+        .form-cat-cont
+          label.form-cat-label(for=cat) #{cat}
+          input(type='radio', name='cat', value=cat checked= review.cat == cat)
+      
+    input.text-btn(type='submit', value='submit')

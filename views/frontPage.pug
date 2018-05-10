@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  
+  .info
+    details
+      summary What is oh-my-pod?
+      |   Some stuff about how this is a podcast review platform and how great it is! Meggings voluptate tacos elit, 90's semiotics hoodie trust fund lomo austin eiusmod cliche. Austin affogato seitan do leggings occaecat
+
+  
+  
+  .card-cont
+    //- pre= h.dump(reviews)
+    each rev in reviews
+      .card
+        .card-content
+          a(href=`/review/${rev.slug}`)
+            img(src=`/uploads/${rev.podImg || 'store.png'}`)
+        
+        if user
+          .edit-btn  
+            a(href=`/review/${rev.slug}/edit`)
+              p.text-center ✏️
